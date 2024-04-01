@@ -36,7 +36,11 @@ from .base.legged_robot import LeggedRobot
 from .custom.humanoid_config import XBotLCfg, XBotLCfgPPO
 from .custom.humanoid_env import XBotLFreeEnv
 
+from .sucrolab.ybt_config import YbtCfg, YbtCfgPPO
+from .sucrolab.ybt_env import YbtEnv
+
 from humanoid.utils.task_registry import task_registry
 
 
 task_registry.register( "humanoid_ppo", XBotLFreeEnv, XBotLCfg(), XBotLCfgPPO() )
+task_registry.register( "ybt", YbtEnv, YbtCfg(), YbtCfgPPO() )

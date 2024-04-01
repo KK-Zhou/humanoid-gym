@@ -452,7 +452,7 @@ class LeggedRobot(BaseTask):
         self.base_euler_xyz = get_euler_xyz_tensor(self.base_quat)
 
         self.contact_forces = gymtorch.wrap_tensor(net_contact_forces).view(self.num_envs, -1, 3) # shape: num_envs, num_bodies, xyz axis
-        self.rigid_state = gymtorch.wrap_tensor(rigid_body_state).view(self.num_envs, 13, 13)
+        self.rigid_state = gymtorch.wrap_tensor(rigid_body_state).view(self.num_envs, self.num_bodies, 13)
 
         # initialize some data used later on
         self.common_step_counter = 0
@@ -622,8 +622,15 @@ class LeggedRobot(BaseTask):
         self.dof_names = self.gym.get_asset_dof_names(robot_asset)
         self.num_bodies = len(body_names)
         self.num_dofs = len(self.dof_names)
+        print(f'{self.num_bodies}body_names: ', body_names)
+        print(f'{self.num_dofs}dof_names: ', self.dof_names)
+
+
         feet_names = [s for s in body_names if self.cfg.asset.foot_name in s]
         knee_names = [s for s in body_names if self.cfg.asset.knee_name in s]
+        print('feet_names: ', feet_names)
+        print('knee_names: ', knee_names)
+
         penalized_contact_names = []
         for name in self.cfg.asset.penalize_contacts_on:
             penalized_contact_names.extend([s for s in body_names if name in s])
@@ -666,6 +673,8 @@ class LeggedRobot(BaseTask):
         self.feet_indices = torch.zeros(len(feet_names), dtype=torch.long, device=self.device, requires_grad=False)
         for i in range(len(feet_names)):
             self.feet_indices[i] = self.gym.find_actor_rigid_body_handle(self.envs[0], self.actor_handles[0], feet_names[i])
+        print('feet_indices: ', self.feet_indices)
+
         self.knee_indices = torch.zeros(len(knee_names), dtype=torch.long, device=self.device, requires_grad=False)
         for i in range(len(knee_names)):
             self.knee_indices[i] = self.gym.find_actor_rigid_body_handle(self.envs[0], self.actor_handles[0], knee_names[i])

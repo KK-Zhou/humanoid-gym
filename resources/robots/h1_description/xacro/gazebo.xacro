@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find h1_description)/xacro/const.xacro"/>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libhunter_bipedal_hw_sim.so">
+            <robotNamespace>/</robotNamespace>
+            <robotParam>legged_robot_description</robotParam>
+            <robotSimType>legged_gazebo/LeggedHWSim</robotSimType>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>500.0</updateRate>
+            <bodyName>base_link</bodyName>
+            <topicName>ground_truth/state</topicName>
+            <gaussianNoise>0</gaussianNoise>
+            <frameName>world</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+<!--    禁用对固定关节的联合优化-->
+    <gazebo reference="imu_joint">
+        <disableFixedJointLumping>true</disableFixedJointLumping>
+    </gazebo>
+
+
+    <gazebo reference="leg_l1_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_l2_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_l3_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_l4_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_l5_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+    <gazebo reference="leg_l_f1_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+    <gazebo reference="leg_l_f2_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+
+    <gazebo reference="leg_r1_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_r2_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_r3_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_r4_link">
+        <mu1>0.6</mu1>
+        <mu2>0.6</mu2>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="leg_r5_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+    <gazebo reference="leg_r_f1_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+    <gazebo reference="leg_r_f2_link">
+        <mu1>1.5</mu1>
+        <mu2>1.5</mu2>
+        <self_collide>1</self_collide>
+        <kp value="1000000.0"/>
+        <kd value="100.0"/>
+        <maxVel>1.0</maxVel>
+        <minDepth>0.00</minDepth>
+    </gazebo>
+
+</robot>

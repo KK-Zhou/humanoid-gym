@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="leg_trans">
+
+    <transmission name="leg_l1_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_l1_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_l1_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>144.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_l2_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_l2_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_l2_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 160rpm -->
+                <maxEffort>144.0</maxEffort><!-- 94Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_l3_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_l3_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_l3_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 160rpm -->
+                <maxEffort>200.0</maxEffort><!-- 94Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_l4_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_l4_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_l4_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>200.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_l5_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_l5_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_l5_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>48.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_r1_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_r1_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_r1_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>144.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_r2_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_r2_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_r2_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 160rpm -->
+                <maxEffort>144.0</maxEffort><!-- 94Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_r3_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_r3_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_r3_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 160rpm -->
+                <maxEffort>200.0</maxEffort><!-- 94Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_r4_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_r4_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_r4_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>200.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+
+        <transmission name="leg_r5_tran">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="leg_r5_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="leg_r5_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+                <maxVelocity>2.6545</maxVelocity><!-- 85rpm -->
+                <maxEffort>48.0</maxEffort><!-- 36Nm -->
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+</robot>

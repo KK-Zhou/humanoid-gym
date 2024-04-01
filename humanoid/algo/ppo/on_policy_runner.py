@@ -94,7 +94,7 @@ class OnPolicyRunner:
         # initialize writer
         if self.log_dir is not None and self.writer is None:
             wandb.init(
-                project="XBot",
+                project="ybt",
                 sync_tensorboard=True,
                 name=self.wandb_run_name,
                 config=self.all_cfg,
@@ -176,7 +176,7 @@ class OnPolicyRunner:
             )
         )
 
-    def log(self, locs, width=80, pad=35):
+    def log(self, locs, width=80, pad=40):
         self.tot_timesteps += self.num_steps_per_env * self.env.num_envs
         self.tot_time += locs["collection_time"] + locs["learn_time"]
         iteration_time = locs["collection_time"] + locs["learn_time"]

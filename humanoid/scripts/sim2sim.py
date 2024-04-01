@@ -125,8 +125,8 @@ def run_mujoco(policy, cfg):
             eu_ang = quaternion_to_euler_array(quat)
             eu_ang[eu_ang > math.pi] -= 2 * math.pi
 
-            obs[0, 0] = math.sin(2 * math.pi * count_lowlevel * cfg.sim_config.dt  / 0.64)
-            obs[0, 1] = math.cos(2 * math.pi * count_lowlevel * cfg.sim_config.dt  / 0.64)
+            obs[0, 0] = math.sin(2 * math.pi * count_lowlevel * cfg.sim_config.dt / 0.64)
+            obs[0, 1] = math.cos(2 * math.pi * count_lowlevel * cfg.sim_config.dt / 0.64)
             obs[0, 2] = cmd.vx * cfg.normalization.obs_scales.lin_vel
             obs[0, 3] = cmd.vy * cfg.normalization.obs_scales.lin_vel
             obs[0, 4] = cmd.dyaw * cfg.normalization.obs_scales.ang_vel
@@ -151,6 +151,7 @@ def run_mujoco(policy, cfg):
 
 
         target_dq = np.zeros((cfg.env.num_actions), dtype=np.double)
+
         # Generate PD control
         tau = pd_control(target_q, q, cfg.robot_config.kps,
                         target_dq, dq, cfg.robot_config.kds)  # Calc torques

@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_description">
+    <!--gazebo自由加载模型摔倒由于大腿长度与小腿关节范围导致的-->
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="stick_mass" value="0.00001"/>
+    <xacro:property name="rotate_order" value="-1"/>
+    <xacro:property name="convert_mit" value="1"/>
+
+    <!-- simplified collision value -->
+    <xacro:property name="trunk_width" value="0.390"/>
+    <xacro:property name="trunk_length" value="0.238"/>
+    <xacro:property name="trunk_height" value="0.503"/>
+   
+
+    <xacro:property name="arm_l1_link_radius" value="0.045"/>
+    <xacro:property name="arm_l1_link_length" value="0.08"/>
+    <xacro:property name="arm_r1_link_radius" value="0.045"/>
+    <xacro:property name="arm_r1_link_length" value="0.08"/>
+
+    <xacro:property name="leg_l2_link_radius" value="0.087"/>
+    <xacro:property name="leg_l2_link_length" value="0.052"/>
+    <xacro:property name="leg_l1_link_radius" value="0.062"/>
+    <xacro:property name="leg_l1_link_length" value="0.05"/>
+    <xacro:property name="leg_r1_link_radius" value="0.062"/>
+    <xacro:property name="leg_r1_link_length" value="0.05"/>
+    <xacro:property name="leg_r2_link_radius" value="0.087"/>
+    <xacro:property name="leg_r2_link_length" value="0.052"/>
+
+    <xacro:property name="arm_l2_link_width" value="0.059"/>
+    <xacro:property name="arm_l2_link_height" value="0.04"/>
+    <xacro:property name="arm_r2_link_width" value="0.059"/>
+    <xacro:property name="arm_r2_link_height" value="0.04"/>
+
+    <xacro:property name="leg_l3_link_width" value="0.1"/>
+    <xacro:property name="leg_l3_link_height" value="0.1"/>
+    <xacro:property name="leg_r3_link_width" value="0.1"/>
+    <xacro:property name="leg_r3_link_height" value="0.1"/>
+
+    <xacro:property name="leg_l4_link_width" value="0.100"/>
+    <xacro:property name="leg_l4_link_height" value="0.050"/>
+    <xacro:property name="leg_r4_link_width" value="0.100"/>
+    <xacro:property name="leg_r4_link_height" value="0.050"/>
+
+    <xacro:property name="arm_l3_link_width" value="0.07"/>
+    <xacro:property name="arm_l3_link_height" value="0.09"/>
+    <xacro:property name="arm_r3_link_width" value="0.07"/>
+    <xacro:property name="arm_r3_link_height" value="0.09"/>
+    
+    <!-- lelffoot value -->  
+    <xacro:property name="leg_l5_link_length" value="0.200"/>   
+    <xacro:property name="leg_l5_link_width" value="0.053"/>
+    <xacro:property name="leg_l5_link_height" value="0.010"/>
+    <xacro:property name="leg_l5_link_mass" value=" 0.325911"/>
+    <xacro:property name="leg_l5_link_com_x" value="0.033343"/>    
+    <xacro:property name="leg_l5_link_com_y" value="0.0"/>
+    <xacro:property name="leg_l5_link_com_z" value="-0.028227"/>
+    <xacro:property name="leg_l5_link_ixx" value="0.000104"/>
+    <xacro:property name="leg_l5_link_ixy" value="0.0"/>
+    <xacro:property name="leg_l5_link_ixz" value="-0.000115"/>
+    <xacro:property name="leg_l5_link_iyy" value="0.001122"/>
+    <xacro:property name="leg_l5_link_iyz" value="0.0"/>
+    <xacro:property name="leg_l5_link_izz" value=" 0.001104"/>
+
+
+    <!-- rightfoot value -->  
+    <xacro:property name="leg_r5_link_length" value="0.200"/>   
+    <xacro:property name="leg_r5_link_width" value="0.053"/>
+    <xacro:property name="leg_r5_link_height" value="0.010"/>
+    <xacro:property name="leg_r5_link_mass" value=" 0.325911 "/>
+    <xacro:property name="leg_r5_link_com_x" value="0.033343"/>    
+    <xacro:property name="leg_r5_link_com_y" value="0.0"/>
+    <xacro:property name="leg_r5_link_com_z" value="-0.028227"/>
+    <xacro:property name="leg_r5_link_ixx" value="0.000104"/>
+    <xacro:property name="leg_r5_link_ixy" value="0.0"/>
+    <xacro:property name="leg_r5_link_ixz" value="-0.000115"/>
+    <xacro:property name="leg_r5_link_iyy" value="0.001122"/>
+    <xacro:property name="leg_r5_link_iyz" value="0.0"/>
+    <xacro:property name="leg_r5_link_izz" value="0.001104"/>
+
+    <!-- kinematic value -->  
+    <xacro:property name="arm_l2_link_length" value="0.220"/>   
+    <xacro:property name="arm_r2_link_length" value="0.220"/> 
+    <xacro:property name="arm_l3_link_length" value="0.300"/>
+    <xacro:property name="arm_r3_link_length" value="0.300"/>
+
+    <xacro:property name="leg_l3_link_length" value="0.400"/>   
+    <xacro:property name="leg_r3_link_length" value="0.400"/> 
+    <xacro:property name="leg_l4_link_length" value="0.400"/>
+    <xacro:property name="leg_r4_link_length" value="0.400"/>
+
+
+    <!-- joint limits -->     <!-- need change for zhi -->
+    <xacro:property name="damping" value="0"/>
+    <xacro:property name="friction" value="0"/>
+    <xacro:property name="arm_link1_velocity_max" value="40"/>
+    <xacro:property name="arm_link1_torque_max" value="24"/>
+    <xacro:property name="leg_link2_velocity_max" value="45"/>
+    <xacro:property name="leg_link2_torque_max" value="144"/>
+    <xacro:property name="leg_link3_velocity_max" value="45"/>
+    <xacro:property name="leg_link3_torque_max" value="200"/>
+    <xacro:property name="leg_link4_velocity_max" value="40"/>
+    <xacro:property name="leg_link4_torque_max" value="48"/>
+    <xacro:property name="arm_link2_velocity_max" value="40"/>
+    <xacro:property name="arm_link2_torque_max" value="24"/>
+    <xacro:property name="arm_link3_velocity_max" value="30"/>
+    <xacro:property name="arm_link3_torque_max" value="12"/>
+
+    <!-- joint limits -->   <!-- need change for zhi -->
+    <xacro:property name="arm_link1_max" value="${90*pi/180.0}"/>
+    <xacro:property name="arm_link1_min" value="${-180*pi/180.0}"/>
+    <xacro:property name="arm_r2_link_max" value="${0*pi/180.0}"/>
+    <xacro:property name="arm_r2_link_min" value="${-166*pi/180.0}"/>
+    <xacro:property name="arm_l2_link_max" value="${166*pi/180.0}"/>
+    <xacro:property name="arm_l2_link_min" value="${0*pi/180.0}"/>
+    <xacro:property name="arm_link3_max" value="${40*pi/180.0}"/>
+    <xacro:property name="arm_link3_min" value="${-165*pi/180.0}"/>
+    <xacro:property name="leg_l1_link_max" value="${28*pi/180.0}"/>
+    <xacro:property name="leg_l1_link_min" value="${-12*pi/180.0}"/>
+    <xacro:property name="leg_r1_link_max" value="${12*pi/180.0}"/>
+    <xacro:property name="leg_r1_link_min" value="${-28*pi/180.0}"/>
+    <xacro:property name="leg_l2_link_max" value="${30*pi/180.0}"/>
+    <xacro:property name="leg_l2_link_min" value="${-12*pi/180.0}"/>
+    <xacro:property name="leg_r2_link_max" value="${12*pi/180.0}"/>
+    <xacro:property name="leg_r2_link_min" value="${-30*pi/180.0}"/>
+    <xacro:property name="leg_r3_link_max" value="${65*pi/180.0}"/>
+    <xacro:property name="leg_r3_link_min" value="${-76.5*pi/180.0}"/>
+    <xacro:property name="leg_l3_link_max" value="${65*pi/180.0}"/>
+    <xacro:property name="leg_l3_link_min" value="${-76.5*pi/180.0}"/>
+    <xacro:property name="leg_r4_link_max" value="${143*pi/180.0}"/>
+<!--    <xacro:property name="leg_r4_link_min" value="${20*pi/180.0}"/>-->
+    <xacro:property name="leg_r4_link_min" value="${0*pi/180.0}"/>
+    <xacro:property name="leg_l4_link_max" value="${143*pi/180.0}"/>
+<!--    <xacro:property name="leg_l4_link_min" value="${20*pi/180.0}"/>-->
+    <xacro:property name="leg_l4_link_min" value="${0*pi/180.0}"/>
+    <xacro:property name="leg_link5_max" value="${69*pi/180.0}"/>
+    <xacro:property name="leg_link5_min" value="${-85*pi/180.0}"/>
+    <!-- dynamics inertial value -->
+    <!-- trunk   change-->
+    <xacro:property name="trunk_mass" value="14.000000"/>
+    <xacro:property name="trunk_com_x" value=" -0.029148"/>
+    <xacro:property name="trunk_com_y" value="-0.000086"/>
+    <xacro:property name="trunk_com_z" value="0.009226"/>
+    <xacro:property name="trunk_ixx" value=" 0.487006"/>
+    <xacro:property name="trunk_ixy" value="-0.000034"/>
+    <xacro:property name="trunk_ixz" value=" 0.044679"/>
+    <xacro:property name="trunk_iyy" value="0.427603"/>
+    <xacro:property name="trunk_iyz" value=" -0.000037"/>
+    <xacro:property name="trunk_izz" value=" 0.219108"/>
+
+    <!-- hip (left leg) add new-->
+    <xacro:property name="leg_l2_link_mass" value="2.697319"/>
+    <xacro:property name="leg_l2_link_com_x" value="-0.001279"/>    
+    <xacro:property name="leg_l2_link_com_y" value="-0.000020"/>
+    <xacro:property name="leg_l2_link_com_z" value="0.007954"/>
+    <xacro:property name="leg_l2_link_ixx" value="0.007300"/>
+    <xacro:property name="leg_l2_link_ixy" value="0.000004"/>
+    <xacro:property name="leg_l2_link_ixz" value="0.000181"/>
+    <xacro:property name="leg_l2_link_iyy" value="0.012500"/>
+    <xacro:property name="leg_l2_link_iyz" value="0.000082"/>
+    <xacro:property name="leg_l2_link_izz" value="0.006774"/>
+
+     <!-- hip (right leg) add new-->
+    <xacro:property name="leg_r2_link_mass" value="2.697319"/>
+    <xacro:property name="leg_r2_link_com_x" value="-0.001279"/>    
+    <xacro:property name="leg_r2_link_com_y" value="0.000020"/>
+    <xacro:property name="leg_r2_link_com_z" value="0.007954"/>
+    <xacro:property name="leg_r2_link_ixx" value="0.007300"/>
+    <xacro:property name="leg_r2_link_ixy" value="-0.000004"/>
+    <xacro:property name="leg_r2_link_ixz" value="0.000181"/>
+    <xacro:property name="leg_r2_link_iyy" value="0.012500"/>
+    <xacro:property name="leg_r2_link_iyz" value="-0.000082"/>
+    <xacro:property name="leg_r2_link_izz" value=" 0.006774"/>
+
+    <!-- waist (left leg) add new-->
+    <xacro:property name="leg_l1_link_mass" value="1.682739"/>
+    <xacro:property name="leg_l1_link_com_x" value="-0.004667"/>    
+    <xacro:property name="leg_l1_link_com_y" value="0.000931"/>
+    <xacro:property name="leg_l1_link_com_z" value="-0.005738"/>
+    <xacro:property name="leg_l1_link_ixx" value="0.001819"/>
+    <xacro:property name="leg_l1_link_ixy" value="0.000017"/>
+    <xacro:property name="leg_l1_link_ixz" value="-0.000066"/>
+    <xacro:property name="leg_l1_link_iyy" value="0.002122"/>
+    <xacro:property name="leg_l1_link_iyz" value="-0.000016"/>
+    <xacro:property name="leg_l1_link_izz" value="0.002855"/>
+
+    <!-- waist (right leg) add new/>-->
+    <xacro:property name="leg_r1_link_mass" value="1.682739"/>
+    <xacro:property name="leg_r1_link_com_x" value="-0.004667"/>    
+    <xacro:property name="leg_r1_link_com_y" value="0.000931"/>
+    <xacro:property name="leg_r1_link_com_z" value="-0.005738"/>
+    <xacro:property name="leg_r1_link_ixx" value="0.001819"/>
+    <xacro:property name="leg_r1_link_ixy" value="0.000017"/>
+    <xacro:property name="leg_r1_link_ixz" value="-0.000066"/>
+    <xacro:property name="leg_r1_link_iyy" value="0.002122"/>
+    <xacro:property name="leg_r1_link_iyz" value="-0.000016"/>
+    <xacro:property name="leg_r1_link_izz" value="0.002855"/>
+
+    <!-- hip (left front) change -->  
+    <xacro:property name="arm_l1_link_mass" value="0.622855"/>
+    <xacro:property name="arm_l1_link_com_x" value="-0.000475"/>    
+    <xacro:property name="arm_l1_link_com_y" value="-0.002959"/>
+    <xacro:property name="arm_l1_link_com_z" value="0.000030"/>
+    <xacro:property name="arm_l1_link_ixx" value="0.000655"/>
+    <xacro:property name="arm_l1_link_ixy" value="-0.000007"/>
+    <xacro:property name="arm_l1_link_ixz" value="0.000001"/>
+    <xacro:property name="arm_l1_link_iyy" value="0.000379"/>
+    <xacro:property name="arm_l1_link_iyz" value="0.000002"/>
+    <xacro:property name="arm_l1_link_izz" value="0.000431"/>
+
+    <!-- hip (right Arm) change -->  
+    <xacro:property name="arm_r1_link_mass" value="0.622855"/>
+    <xacro:property name="arm_r1_link_com_x" value="0.000675"/>    
+    <xacro:property name="arm_r1_link_com_y" value="0.002958"/>
+    <xacro:property name="arm_r1_link_com_z" value="0.000120"/>
+    <xacro:property name="arm_r1_link_ixx" value="0.000655"/>
+    <xacro:property name="arm_r1_link_ixy" value="0.000007"/>
+    <xacro:property name="arm_r1_link_ixz" value="0.000001"/>
+    <xacro:property name="arm_r1_link_iyy" value="0.000378"/>
+    <xacro:property name="arm_r1_link_iyz" value="0.000000"/>
+    <xacro:property name="arm_r1_link_izz" value="0.000431"/>
+
+    <!-- thigh   change-->
+    <xacro:property name="arm_l2_link_mass" value=" 0.686346 "/>
+    <xacro:property name="arm_l2_link_com_x" value="-0.012334"/>
+    <xacro:property name="arm_l2_link_com_y" value="-0.000655"/>
+    <xacro:property name="arm_l2_link_com_z" value="0.111803"/>
+    <xacro:property name="arm_l2_link_ixx" value="0.009735"/>
+    <xacro:property name="arm_l2_link_ixy" value="-0.000006"/>
+    <xacro:property name="arm_l2_link_ixz" value=" -0.000765"/>
+    <xacro:property name="arm_l2_link_iyy" value=" 0.009958"/>
+    <xacro:property name="arm_l2_link_iyz" value=" 0.000050"/>
+    <xacro:property name="arm_l2_link_izz" value="0.000460"/>
+
+    <!-- thigh (right Arm)  change-->
+    <xacro:property name="arm_r2_link_mass" value="0.686346"/>
+    <xacro:property name="arm_r2_link_com_x" value="0.007666"/>
+    <xacro:property name="arm_r2_link_com_y" value="-0.000655"/>
+    <xacro:property name="arm_r2_link_com_z" value=" -0.187497"/>
+    <xacro:property name="arm_r2_link_ixx" value="0.009735"/>
+    <xacro:property name="arm_r2_link_ixy" value="-0.000006"/>
+    <xacro:property name="arm_r2_link_ixz" value=" -0.000765"/>
+    <xacro:property name="arm_r2_link_iyy" value="0.009958"/>
+    <xacro:property name="arm_r2_link_iyz" value="0.000050"/>
+    <xacro:property name="arm_r2_link_izz" value=" 0.000460"/>
+
+    <!-- lelfleg thigh   change-->
+    <xacro:property name="leg_l3_link_mass" value="6.133134"/>
+    <xacro:property name="leg_l3_link_com_x" value="0.010801"/>
+    <xacro:property name="leg_l3_link_com_y" value="0.015919"/>
+    <xacro:property name="leg_l3_link_com_z" value="-0.088156"/>
+    <xacro:property name="leg_l3_link_ixx" value=" 0.123582"/>
+    <xacro:property name="leg_l3_link_ixy" value="-0.001076"/>
+    <xacro:property name="leg_l3_link_ixz" value="-0.007036"/>
+    <xacro:property name="leg_l3_link_iyy" value=" 0.126866"/>
+    <xacro:property name="leg_l3_link_iyz" value=" 0.008649"/>
+    <xacro:property name="leg_l3_link_izz" value=" 0.011662"/>
+
+    <!-- rightleg thigh   change-->
+    <xacro:property name="leg_r3_link_mass" value=" 6.133134 "/>
+    <xacro:property name="leg_r3_link_com_x" value=" 0.010801"/>
+    <xacro:property name="leg_r3_link_com_y" value="-0.015919"/>
+    <xacro:property name="leg_r3_link_com_z" value="-0.088156"/>
+    <xacro:property name="leg_r3_link_ixx" value=" 0.123582"/>
+    <xacro:property name="leg_r3_link_ixy" value="0.001076"/>
+    <xacro:property name="leg_r3_link_ixz" value="-0.007036"/>
+    <xacro:property name="leg_r3_link_iyy" value="0.126866"/>
+    <xacro:property name="leg_r3_link_iyz" value="-0.008649"/>
+    <xacro:property name="leg_r3_link_izz" value="0.011662"/>
+    
+    <!--lelfleg calf  change-->
+    <xacro:property name="leg_l4_link_mass" value=" 2.757724"/>
+    <xacro:property name="leg_l4_link_com_x" value="0.013580"/>
+    <xacro:property name="leg_l4_link_com_y" value="0.005401"/>
+    <xacro:property name="leg_l4_link_com_z" value="-0.186760"/>
+    <xacro:property name="leg_l4_link_ixx" value="0.052429"/>
+    <xacro:property name="leg_l4_link_ixy" value="-0.000618"/>
+    <xacro:property name="leg_l4_link_ixz" value="0.002695"/>
+    <xacro:property name="leg_l4_link_iyy" value="0.053962"/>
+    <xacro:property name="leg_l4_link_iyz" value="-0.002004"/>
+    <xacro:property name="leg_l4_link_izz" value="0.003135"/>
+
+    <!--rightleg calf  change-->
+    <xacro:property name="leg_r4_link_mass" value="2.757724"/>
+    <xacro:property name="leg_r4_link_com_x" value="0.013580"/>
+    <xacro:property name="leg_r4_link_com_y" value="-0.005401"/>
+    <xacro:property name="leg_r4_link_com_z" value="-0.186760"/>
+    <xacro:property name="leg_r4_link_ixx" value="0.052429"/>
+    <xacro:property name="leg_r4_link_ixy" value="0.000618"/>
+    <xacro:property name="leg_r4_link_ixz" value="0.002695"/>
+    <xacro:property name="leg_r4_link_iyy" value="0.053962"/>
+    <xacro:property name="leg_r4_link_iyz" value="0.002004"/>
+    <xacro:property name="leg_r4_link_izz" value="0.003135"/>
+
+    <!-- calf   change-->
+    <xacro:property name="arm_l3_link_mass" value=" 0.490185"/>
+    <xacro:property name="arm_l3_link_com_x" value="-0.018007"/>
+    <xacro:property name="arm_l3_link_com_y" value="0.000613"/>
+    <xacro:property name="arm_l3_link_com_z" value="-0.177358"/>
+    <xacro:property name="arm_l3_link_ixx" value="0.005496"/>
+    <xacro:property name="arm_l3_link_ixy" value="0.000002"/>
+    <xacro:property name="arm_l3_link_ixz" value=" 0.000169"/>
+    <xacro:property name="arm_l3_link_iyy" value=" 0.005477"/>
+    <xacro:property name="arm_l3_link_iyz" value=" 0.000045"/>
+    <xacro:property name="arm_l3_link_izz" value="0.000317"/>
+
+    <!-- rightarm calf change-->
+    <xacro:property name="arm_r3_link_mass" value=" 0.490185"/>
+    <xacro:property name="arm_r3_link_com_x" value="0.070594"/>
+    <xacro:property name="arm_r3_link_com_y" value="0.0473114"/>
+    <xacro:property name="arm_r3_link_com_z" value="-0.064586"/>
+    <xacro:property name="arm_r3_link_ixx" value="0.005139"/>
+    <xacro:property name="arm_r3_link_ixy" value="0.001322"/>
+    <xacro:property name="arm_r3_link_ixz" value=" 0.000015"/>
+    <xacro:property name="arm_r3_link_iyy" value=" 0.000674"/>
+    <xacro:property name="arm_r3_link_iyz" value=" 0.000049"/>
+    <xacro:property name="arm_r3_link_izz" value="0.005476"/>
+
+    <!-- foot -->
+    <xacro:property name="foot_mass" value="0.0"/>
+
+</robot>

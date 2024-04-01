@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="h1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:include filename="$(find h1_description)/xacro/left_arm.xacro"/>
+    <xacro:include filename="$(find h1_description)/xacro/right_arm.xacro"/>
+    <xacro:include filename="$(find h1_description)/xacro/left_leg.xacro"/>   
+    <xacro:include filename="$(find h1_description)/xacro/right_leg.xacro"/> 
+    <xacro:include filename="$(find h1_description)/xacro/const.xacro"/> 
+    <xacro:include filename="$(find h1_description)/xacro/materials.xacro"/> 
+    <xacro:include filename="$(find h1_description)/xacro/gazebo.xacro"/>
+    <xacro:include filename="$(find h1_description)/xacro/transmission.xacro"/>
+
+    <link name="base_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://h1_description/meshes/stl/base_link.STL" scale="1 1 1"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 ${trunk_height/6-0.05}"/>
+            <geometry>
+                <box size="${trunk_length/1.5} ${trunk_width/1.5} ${trunk_height/1.5}"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <origin rpy="0 0 0" xyz="${trunk_com_x} ${trunk_com_y} ${trunk_com_z}"/>
+            <mass value="${trunk_mass}"/>
+            <inertia
+                    ixx="${trunk_ixx}" ixy="${trunk_ixy}" ixz="${trunk_ixz}"
+                    iyy="${trunk_iyy}" iyz="${trunk_iyz}"
+                    izz="${trunk_izz}"/>
+        </inertial>
+    </link>
+
+    <joint name="imu_joint" type="fixed">
+        <origin rpy="0. 0. 0." xyz="0. 0. 0"/>
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+    <!-- Imu link -->
+    <link name="imu_link">
+        <inertial>
+            <mass value="0.01"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+        </inertial>
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.015 0.015 0.004"/>
+            </geometry>
+        </visual>
+        <material name="orange">
+            <color rgba="255 108 10 255"/>
+        </material>
+    </link>
+
+   <xacro:right_arm/>
+   <xacro:left_arm/>
+   <xacro:right_leg/> 
+   <xacro:left_leg/>
+   <xacro:leg_trans/>
+
+</robot>

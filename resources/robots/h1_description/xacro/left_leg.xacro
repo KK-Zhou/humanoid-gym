@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="left_leg"> 
+
+        <joint name="leg_l1_joint" type="revolute">
+        <origin rpy="0 0 0" xyz="0.02 0.080 -0.202"/> 
+            <parent link="base_link"/>
+            <child link="leg_l1_link"/>
+            <axis xyz="1 0 0"/>       
+            <dynamics damping="${damping}" friction="${friction}"/>  
+            <limit effort="${leg_link2_torque_max}" velocity="${leg_link2_velocity_max}" lower="${leg_l1_link_min}"   
+                       upper="${leg_l1_link_max}"/>    
+        </joint>
+
+        <link name="leg_l1_link">
+            <visual>
+             <origin rpy="0 0 0" xyz="0 0 0"/>  
+                <geometry>
+                    <mesh filename="package://h1_description/meshes/stl/leg_l1_link.STL"
+                          scale="1 1 1"/>
+                </geometry>
+                <material name="brown"/>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>   
+                <geometry>
+                    <cylinder length="${leg_l1_link_length}" radius="${leg_l1_link_radius * 0.9}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${leg_l1_link_com_x} ${leg_l1_link_com_y} ${leg_l1_link_com_z}"/>  
+                <mass value="${leg_l1_link_mass}"/>
+                <inertia
+                        ixx="${leg_l1_link_ixx}" ixy="${leg_l1_link_ixy}" ixz="${leg_l1_link_ixz}"
+                        iyy="${leg_l1_link_iyy}" iyz="${leg_l1_link_iyz}"
+                        izz="${leg_l1_link_izz}"/>
+            </inertial>
+        </link>
+
+        <joint name="leg_l2_joint" type="revolute">
+         <!--   <origin rpy="0 0 0" xyz="0.103 0 -0.103"/>0 -0.006 -0.13  -->  
+            <origin rpy="0 0 0" xyz="0 -0.006 -0.13"/>   
+            <parent link="leg_l1_link"/>
+            <child link="leg_l2_link"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="${damping}" friction="${friction}"/>
+                <limit effort="${leg_link2_torque_max}" velocity="${leg_link2_velocity_max}" lower="${leg_l2_link_min}"
+                   upper="${leg_l2_link_max}"/>
+        </joint>
+
+        <link name="leg_l2_link">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>   
+                <geometry>
+                        <mesh filename="package://h1_description/meshes/stl/leg_l2_link.STL"
+                              scale="1 1 1"/>
+                </geometry>
+                <material name="brown"/>
+            </visual>
+            <collision> 
+                <!-- <origin rpy="${pi/2} 0 0" xyz="${leg_l2_link_radius} 0 0"/>       -->
+                <origin rpy="${pi/2} 0 0" xyz="0 0 0"/> 
+                <geometry>
+                    <cylinder length="0.052" radius="0.087"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${leg_l2_link_com_x} ${leg_l2_link_com_y} ${leg_l2_link_com_z}"/>
+                <mass value="${leg_l2_link_mass}"/>
+                <inertia
+                        ixx="${leg_l2_link_ixx}" ixy="${leg_l2_link_ixy}" ixz="${leg_l2_link_ixz}"
+                        iyy="${leg_l2_link_iyy}" iyz="${leg_l2_link_iyz}"
+                        izz="${leg_l2_link_izz}"/>
+            </inertial>
+        </link>
+
+        <joint name="leg_l3_joint" type="revolute">
+          <!--   <origin rpy="0 0 0" xyz="0 0.057 0"/> -->
+            <origin rpy="0 0 0" xyz="0 0.057 0"/>    
+            <parent link="leg_l2_link"/>
+            <child link="leg_l3_link"/>
+            <xacro:if value="${(convert_mit == 1)}">
+                <axis xyz="0 -1 0"/>
+                <dynamics damping="${damping}" friction="${friction}"/>
+                <limit effort="${leg_link3_torque_max}" velocity="${leg_link3_velocity_max}" lower="${-leg_l3_link_max}"
+                       upper="${-leg_l3_link_min}"/>
+            </xacro:if>
+            <xacro:if value="${(convert_mit == -1)}">
+                <axis xyz="0 1 0"/>
+                <dynamics damping="${damping}" friction="${friction}"/>
+                <limit effort="${leg_link3_torque_max}" velocity="${leg_link3_velocity_max}" lower="${leg_l3_link_min}"
+                       upper="${leg_l3_link_max}"/>
+            </xacro:if>
+        </joint>
+
+        <link name="leg_l3_link">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>  
+                <geometry>
+                    <mesh filename="package://h1_description/meshes/stl/leg_l3_link.STL"
+                          scale="1 1 1"/>
+                </geometry>
+                <material name="brown"/>
+            </visual>
+            <collision>
+                <origin rpy="0 ${pi/2} 0" xyz="0.03 0 -0.200"/>
+                <geometry>
+                    <box size="0.3 0.05 0.05"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${leg_l3_link_com_x} ${leg_l3_link_com_y} ${leg_l3_link_com_z}"/>
+                <mass value="${leg_l3_link_mass}"/>
+                <inertia
+                        ixx="${leg_l3_link_ixx}" ixy="${leg_l3_link_ixy}" ixz="${leg_l3_link_ixz}"
+                        iyy="${leg_l3_link_iyy}" iyz="${leg_l3_link_iyz}"
+                        izz="${leg_l3_link_izz}"/>
+            </inertial>
+        </link>
+
+        <joint name="leg_l4_joint" type="revolute">
+        <!--   <origin rpy="0 0 0" xyz="0 0 -0.400"/>    --> 
+            <origin rpy="0 0 0" xyz="0 0 -0.400"/> 
+            <parent link="leg_l3_link"/>
+            <child link="leg_l4_link"/>
+            <xacro:if value="${(convert_mit == 1)}">
+                <axis xyz="0 -1 0"/>
+                <dynamics damping="${damping}" friction="${friction}"/>
+                <limit effort="${leg_link3_torque_max}" velocity="${leg_link3_velocity_max}" lower="${-leg_l4_link_max}"
+                       upper="${-leg_l4_link_min}"/>
+            </xacro:if>
+            <xacro:if value="${(convert_mit == -1)}">
+                <axis xyz="0 1 0"/>
+                <dynamics damping="${damping}" friction="${friction}"/>
+                <limit effort="${leg_link3_torque_max}" velocity="${leg_link3_velocity_max}" lower="${leg_l4_link_min}"
+                       upper="${leg_l4_link_max}"/>
+            </xacro:if>
+        </joint>
+
+        <link name="leg_l4_link">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://h1_description/meshes/stl/leg_l4_link.STL"
+                          scale="1 1 1"/>
+                </geometry>
+                <material name="brown"/>
+            </visual>
+            <collision>
+                <origin rpy="0 ${pi/2.0} 0" xyz="0 0 -0.20"/>
+                <geometry>
+                    <box size="0.45 0.05 0.05"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${leg_l4_link_com_x} ${leg_l4_link_com_y} ${leg_l4_link_com_z}"/>
+                <mass value="${leg_l4_link_mass}"/>
+                <inertia
+                        ixx="${leg_l4_link_ixx}" ixy="${leg_l4_link_ixy}" ixz="${leg_l4_link_ixz}"
+                        iyy="${leg_l4_link_iyy}" iyz="${leg_l4_link_iyz}"
+                        izz="${leg_l4_link_izz}"/>
+            </inertial>
+        </link>
+
+        <joint name="leg_l5_joint" type="revolute">
+          
+            <origin rpy="0 0 0" xyz="0 0 ${-(leg_l4_link_length)}"/>
+            <parent link="leg_l4_link"/>
+            <child link="leg_l5_link"/>
+            <axis xyz="0 1 0"/>
+            <dynamics damping="${damping}" friction="${friction}"/>
+            <limit effort="${leg_link4_torque_max}" velocity="${leg_link4_velocity_max}" lower="${leg_link5_min}"
+                       upper="${leg_link5_max}"/>
+        </joint>
+
+        <link name="leg_l5_link">
+            <visual>
+         <!--      <origin rpy="0 0 0" xyz="${leg_l5_link_length/2.0} 0 0"/>  --> 
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://h1_description/meshes/stl/leg_l5_link.STL"
+                          scale="1 1 1"/>
+                </geometry>
+                <material name="brown"/>
+            </visual>
+            <collision>
+                <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+                <origin rpy="0 0 0" xyz="0.05 0 -0.04"/>
+                <geometry>
+                     <box size="${leg_l5_link_length} ${leg_l5_link_width} ${leg_l5_link_height}"/>
+                </geometry>
+            </collision>
+            <inertial>
+                <origin rpy="0 0 0" xyz="${leg_l5_link_com_x} ${leg_l5_link_com_y} ${leg_l5_link_com_z}"/>
+                <mass value="${leg_l5_link_mass}"/>
+                <inertia
+                        ixx="${leg_l5_link_ixx}" ixy="${leg_l5_link_ixy}" ixz="${leg_l5_link_ixz}"
+                        iyy="${leg_l5_link_iyy}" iyz="${leg_l5_link_iyz}"
+                        izz="${leg_l5_link_izz}"/>
+            </inertial>
+        </link>
+
+        <joint name="leg_l5_fixed_1" type="fixed">
+            <origin xyz="0.12 0 -0.04" rpy="0 0 0" />
+            <parent link="leg_l5_link" />
+            <child link="leg_l_f1_link" />
+        </joint>
+        <link name="leg_l_f1_link">
+            <inertial>
+                <mass value="0.01" />
+                <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.001"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="leg_l5_fixed_2" type="fixed">
+            <origin xyz="-0.01 0 -0.04" rpy="0 0 0" />
+            <parent link="leg_l5_link" />
+            <child link="leg_l_f2_link" />
+        </joint>
+        <link name="leg_l_f2_link">
+            <inertial>
+                <mass value="0.01" />
+                <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001" />
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <sphere radius="0.001"/>
+                </geometry>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="-0 0 0"/>
+                <geometry>
+                    <sphere radius="0.001"/>
+                </geometry>
+            </collision>
+        </link>
+    </xacro:macro>
+</robot>
